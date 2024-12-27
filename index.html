@@ -1,89 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="/_next/static/css/0928112bc730eb31.css?dpl=dpl_9TQw87LLyxaqcP9R96dzvxWhG34v" data-precedence="next" />
-  <title>Art Universal - Google Search</title>
-  <style>
-    body, html {
-      height: 100%;
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: sans-serif;
-      background-color: #f4f4f4;
-    }
+<html>
+   <head>
+      <title>Art Universal</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+      <style>
+         /* General styles */
+         body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: sans-serif;
+            background-color: #f4f4f4;
+         }
 
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      text-align: center;
-    }
+         .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            text-align: center;
+         }
 
-    .search-form {
-      width: 100%;
-      max-width: 500px;
-      display: flex;
-      gap: 8px;
-      justify-content: center;
-      align-items: center;
-    }
+         .title {
+            font-size: 64px; /* Increased size */
+            font-weight: bold;
+            background: linear-gradient(90deg, #ff007f, #6200ea); /* Pinkish-purple gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+         }
 
-    .search-input {
-      width: 100%;
-      padding: 12px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      outline: none;
-    }
+         .search-form {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            align-items: center;
+         }
 
-    .search-button {
-      padding: 12px 20px;
-      font-size: 16px;
-      background-color: #6200ea;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
+         .search-input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+         }
 
-    .search-button:hover {
-      background-color: #3700b3;
-    }
+         .search-button {
+            padding: 12px 20px;
+            font-size: 16px;
+            background-color: #6200ea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+         }
 
-    footer {
-      position: fixed;
-      bottom: 16px;
-      font-size: 14px;
-      color: #777;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="flex items-center gap-2 text-4xl font-bold">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-palette h-12 w-12">
-        <circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle>
-        <circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle>
-        <circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle>
-        <circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle>
-        <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path>
-      </svg>
-      <span class="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Art Universal</span>
-    </div>
-    <!-- Updated Form -->
-    <form class="search-form" action="https://www.google.com/search" method="get">
-      <input type="search" class="search-input" placeholder="Search anything..." required name="q" />
-      <button type="submit" class="search-button">Search</button>
-    </form>
-    <footer class="fixed bottom-4 text-sm text-muted-foreground">Powered by Google Search</footer>
-  </div>
-</body>
+         .search-button:hover {
+            background-color: #3700b3;
+         }
+
+         footer {
+            position: fixed;
+            bottom: 16px;
+            font-size: 14px;
+            color: #777;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="container">
+         <div class="title">Art Universal</div> <!-- Updated title -->
+         <form id="uv-form" class="search-form" action="https://www.google.com/search" method="get">
+            <input type="hidden" id="uv-search-engine" value="https://www.google.com/search?q=%s" />
+            <input class="search-input" id="uv-address" type="text" placeholder="Search Unblocked with Art Universal" name="q" required />
+            <button class="search-button" type="submit">Search</button>
+         </form>
+         <footer>Credits to @Desktop_bypassers for help making this proxy!</footer>
+      </div>
+      <script src="uv/uv.bundle.js" defer></script>
+      <script src="uv/uv.config.js" defer></script>
+      <script src="register-sw.js" defer></script>
+      <script src="search.js" defer></script>
+      <script src="index.js" defer></script>
+      <script src="error.js"></script>
+   </body>
 </html>
