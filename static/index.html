@@ -1,23 +1,89 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>Art University</title>
+      <title>Art Universal</title>
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+      <style>
+         /* General styles */
+         body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: sans-serif;
+            background-color: #f4f4f4;
+         }
+
+         .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            text-align: center;
+         }
+
+         .title {
+            font-size: 64px; /* Increased size */
+            font-weight: bold;
+            background: linear-gradient(90deg, #ff007f, #6200ea); /* Pinkish-purple gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+         }
+
+         .search-form {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            align-items: center;
+         }
+
+         .search-input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+         }
+
+         .search-button {
+            padding: 12px 20px;
+            font-size: 16px;
+            background-color: #6200ea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+         }
+
+         .search-button:hover {
+            background-color: #3700b3;
+         }
+
+         footer {
+            position: fixed;
+            bottom: 16px;
+            font-size: 14px;
+            color: #777;
+         }
+      </style>
    </head>
    <body>
-      <div>
-         <img src="Art.png">
-      </div>
-      <div>
-         <form id="uv-form">
-            <input id="uv-search-engine" value="https://www.google.com/search?q=%s" type="hidden"/> 
-            <input id="uv-address" type="text" placeholder="Search with Art University!"/>
+      <div class="container">
+         <div class="title">Art Universal</div> <!-- Updated title -->
+         <form id="uv-form" class="search-form" action="https://www.google.com/search" method="get">
+            <input type="hidden" id="uv-search-engine" value="https://www.google.com/search?q=%s" />
+            <input class="search-input" id="uv-address" type="text" placeholder="Search Unblocked with Art Universal" name="q" required />
+            <button class="search-button" type="submit">Search</button>
          </form>
-         <div>
-            <p id="uv-error"></p>
-            <pre id="uv-error-code"></pre>
-         </div>
+         <footer>Credits to @Desktop_bypassers for help making this proxy!</footer>
       </div>
       <script src="uv/uv.bundle.js" defer></script>
       <script src="uv/uv.config.js" defer></script>
@@ -26,68 +92,4 @@
       <script src="index.js" defer></script>
       <script src="error.js"></script>
    </body>
-   <script>
-      const canvas = document.createElement('canvas');
-      canvas.id = 'snowCanvas';
-      document.body.appendChild(canvas);
-
-      const ctx = canvas.getContext('2d');
-
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-
-      const snowflakes = [];
-      const maxSnowflakes = 150;
-
-      class Snowflake {
-         constructor() {
-            this.reset();
-         }
-
-         reset() {
-            this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height - canvas.height;
-            this.radius = Math.random() * 3 + 1;
-            this.speed = Math.random() * 1 + 0.5;
-            this.opacity = Math.random() * 0.8 + 0.2;
-         }
-
-         update() {
-            this.y += this.speed;
-
-            if (this.y > canvas.height) {
-               this.reset();
-            }
-         }
-
-         draw() {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
-            ctx.fill();
-         }
-      }
-
-      for (let i = 0; i < maxSnowflakes; i++) {
-         snowflakes.push(new Snowflake());
-      }
-
-      function animate() {
-         ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-         for (const snowflake of snowflakes) {
-            snowflake.update();
-            snowflake.draw();
-         }
-
-         requestAnimationFrame(animate);
-      }
-
-      animate();
-
-      window.addEventListener('resize', () => {
-         canvas.width = window.innerWidth;
-         canvas.height = window.innerHeight;
-      });
-   </script>
 </html>
