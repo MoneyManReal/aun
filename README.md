@@ -1,8 +1,7 @@
-![Art Universal Logo](https://classroom84x.vercel.app/IMG_0005.jpeg)
-
-## Description
-
+## Details
 The Official Proxy for Art Universal
+
+## Forking
 Star if you fork!
 
 ## Contributers
