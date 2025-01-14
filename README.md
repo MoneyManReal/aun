@@ -4,7 +4,7 @@ The Official Proxy for Art Universal
 ## Forking
 Star if you fork!
 
-## Contributers
+## Contributors
 
-@Desktop_bypassers (Discord)
+@Desktop_bypassers (Discord) @wvrmattreborn (Discord)
 
