@@ -218,33 +218,31 @@
             window.location.href = 'about:blank';
          }
 
-         // Create 20 dots with random movement
-         function createRandomDots(numDots) {
+         // Create new random dot
+         function createRandomDot() {
             const container = document.getElementById('moving-dots');
-            for (let i = 0; i < numDots; i++) {
-                const dot = document.createElement('div');
-                dot.classList.add('dot');
-                const size = Math.floor(Math.random() * 30) + 15; // Dot size between 15px and 45px
-                const colorDuration = Math.random() * 5 + 5; // Random color change duration between 5s and 10s
-                const positionX = Math.random() * 100; // Random x position between 0% and 100%
-                const positionY = Math.random() * 100; // Random y position between 0% and 100%
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            const size = Math.floor(Math.random() * 30) + 15; // Dot size between 15px and 45px
+            const colorDuration = Math.random() * 5 + 5; // Random color change duration between 5s and 10s
+            const positionX = Math.random() * 100; // Random x position between 0% and 100%
+            const positionY = Math.random() * 100; // Random y position between 0% and 100%
 
-                dot.style.width = `${size}px`;
-                dot.style.height = `${size}px`;
-                dot.style.top = `${positionY}vh`;
-                dot.style.left = `${positionX}vw`;
-                dot.style.animationDuration = `${colorDuration}s`;
+            dot.style.width = `${size}px`;
+            dot.style.height = `${size}px`;
+            dot.style.top = `${positionY}vh`;
+            dot.style.left = `${positionX}vw`;
+            dot.style.animationDuration = `${colorDuration}s`;
 
-                // Set initial velocity for bouncing
-                const velocityX = (Math.random() - 0.5) * 0.5; // Random horizontal velocity
-                const velocityY = (Math.random() - 0.5) * 0.5; // Random vertical velocity
+            // Set initial velocity for bouncing
+            const velocityX = (Math.random() - 0.5) * 0.5; // Random horizontal velocity
+            const velocityY = (Math.random() - 0.5) * 0.5; // Random vertical velocity
 
-                // Store velocity in dot's data attributes
-                dot.setAttribute('data-velocity-x', velocityX);
-                dot.setAttribute('data-velocity-y', velocityY);
+            // Store velocity in dot's data attributes
+            dot.setAttribute('data-velocity-x', velocityX);
+            dot.setAttribute('data-velocity-y', velocityY);
 
-                container.appendChild(dot);
-            }
+            container.appendChild(dot);
          }
 
          // Dot bouncing logic
@@ -277,10 +275,13 @@
                 dot.style.top = `${y}vh`;
             });
 
+            // Create a new dot every 100ms
+            setTimeout(createRandomDot, 100);
             requestAnimationFrame(updateDotPositions);
          }
 
-         createRandomDots(20); // Create 20 dots
+         // Start the dot creation and movement
+         createRandomDot(); // Create the first dot
          updateDotPositions(); // Start the dot bouncing
       </script>
       <script src="uv/uv.bundle.js" defer></script>
