@@ -218,8 +218,13 @@
             window.location.href = 'about:blank';
          }
 
+         const MAX_DOTS = 500; // Set the maximum number of dots
+         let dotCount = 0; // Counter to track the current number of dots
+
          // Create new random dot
          function createRandomDot() {
+            if (dotCount >= MAX_DOTS) return; // Don't create more dots if limit is reached
+
             const container = document.getElementById('moving-dots');
             const dot = document.createElement('div');
             dot.classList.add('dot');
@@ -243,6 +248,7 @@
             dot.setAttribute('data-velocity-y', velocityY);
 
             container.appendChild(dot);
+            dotCount++; // Increase dot count
          }
 
          // Dot bouncing logic
