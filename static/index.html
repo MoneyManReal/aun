@@ -107,6 +107,37 @@
             font-size: 14px;
             color: #777;
          }
+
+         /* New buttons for GitHub and Discord */
+         .social-buttons {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+         }
+
+         .social-buttons a {
+            padding: 10px 20px;
+            font-size: 16px;
+            text-decoration: none;
+            color: white;
+            border-radius: 8px;
+            display: inline-block;
+            text-align: center;
+         }
+
+         .github {
+            background-color: #333;
+         }
+
+         .discord {
+            background-color: #7289da;
+         }
+
+         .social-buttons a:hover {
+            opacity: 0.8;
+         }
       </style>
    </head>
    <body>
@@ -124,6 +155,13 @@
 
          <footer>Credits to @Desktop_bypassers & @wvrmattreborn for help making this proxy!</footer>
       </div>
+
+      <!-- Social media buttons for GitHub and Discord -->
+      <div class="social-buttons">
+         <a href="https://github.com/yourprofile" target="_blank" class="github">GitHub</a>
+         <a href="https://discord.com/invite/yourdiscord" target="_blank" class="discord">Discord</a>
+      </div>
+
       <script>
          function cloakTab() {
             window.location.href = 'about:blank';
