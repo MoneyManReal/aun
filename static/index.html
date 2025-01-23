@@ -3,11 +3,11 @@
    <head>
       <title>Art Universal</title>
       <meta name="viewport" content="width=device-width, initial-scale=1">
+      <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
       <style>
          /* General styles */
          body, html {
             height: 100%;
-            width: 500px;  /* Set the width to 500px */
             margin: 0;
             display: flex;
             justify-content: center;
@@ -17,7 +17,7 @@
             position: relative;
          }
 
-         /* Container to center the content */
+         /* Ensures the page fully covers the viewport */
          .container {
             display: flex;
             flex-direction: column;
@@ -148,7 +148,7 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 500px;  /* Make sure it stretches full width of the container */
+            width: 100vw;  /* Make sure it stretches full width of viewport */
             height: 100vh; /* Make sure it stretches full height of viewport */
             pointer-events: none;
             z-index: 0;
