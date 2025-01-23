@@ -83,6 +83,24 @@
             background-color: #3700b3;
          }
 
+         .about-blank-button {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 10px 15px;
+            font-size: 14px;
+            background-color: #ff5722;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+         }
+
+         .about-blank-button:hover {
+            background-color: #e64a19;
+         }
+
          footer {
             position: fixed;
             bottom: 16px;
@@ -92,6 +110,7 @@
       </style>
    </head>
    <body>
+      <button class="about-blank-button" onclick="cloakTab()">About:Blank</button>
       <div class="container">
          <div class="title">Art Universal</div> <!-- Updated title -->
          <form id="uv-form" class="search-form" action="https://www.bing.com/search?q=" method="get">
@@ -105,6 +124,11 @@
 
          <footer>Credits to @Desktop_bypassers & @wvrmattreborn for help making this proxy!</footer>
       </div>
+      <script>
+         function cloakTab() {
+            window.location.href = 'about:blank';
+         }
+      </script>
       <script src="uv/uv.bundle.js" defer></script>
       <script src="uv/uv.config.js" defer></script>
       <script src="register-sw.js" defer></script>
