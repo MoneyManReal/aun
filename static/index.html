@@ -156,26 +156,7 @@
          .dot {
             position: absolute;
             border-radius: 50%;
-            animation: moveDots 10s infinite, colorChange 5s infinite;
-         }
-
-         /* Dot movement animation */
-         @keyframes moveDots {
-            0% {
-                transform: translate(0vw, 0vh);
-            }
-            25% {
-                transform: translate(100vw, 0vh);
-            }
-            50% {
-                transform: translate(100vw, 100vh);
-            }
-            75% {
-                transform: translate(0vw, 100vh);
-            }
-            100% {
-                transform: translate(0vw, 0vh);
-            }
+            animation: colorChange 5s infinite;
          }
 
          /* Color change animation */
@@ -205,7 +186,6 @@
                 background-color: purple;
             }
          }
-
       </style>
    </head>
    <body>
@@ -231,34 +211,59 @@
       </div>
 
       <!-- Moving colorful dots background -->
-      <div class="moving-dots">
-         <!-- Generate 20 dots -->
-         <div class="dot" style="width: 15px; height: 15px; top: 5%; left: 5%; animation-duration: 10s;"></div>
-         <div class="dot" style="width: 20px; height: 20px; top: 10%; left: 15%; animation-duration: 12s;"></div>
-         <div class="dot" style="width: 25px; height: 25px; top: 20%; left: 25%; animation-duration: 13s;"></div>
-         <div class="dot" style="width: 30px; height: 30px; top: 30%; left: 35%; animation-duration: 14s;"></div>
-         <div class="dot" style="width: 20px; height: 20px; top: 40%; left: 45%; animation-duration: 15s;"></div>
-         <div class="dot" style="width: 25px; height: 25px; top: 50%; left: 55%; animation-duration: 16s;"></div>
-         <div class="dot" style="width: 15px; height: 15px; top: 60%; left: 65%; animation-duration: 17s;"></div>
-         <div class="dot" style="width: 20px; height: 20px; top: 70%; left: 75%; animation-duration: 18s;"></div>
-         <div class="dot" style="width: 25px; height: 25px; top: 80%; left: 85%; animation-duration: 19s;"></div>
-         <div class="dot" style="width: 30px; height: 30px; top: 10%; left: 95%; animation-duration: 12s;"></div>
-         <div class="dot" style="width: 20px; height: 20px; top: 20%; left: 85%; animation-duration: 13s;"></div>
-         <div class="dot" style="width: 25px; height: 25px; top: 30%; left: 75%; animation-duration: 14s;"></div>
-         <div class="dot" style="width: 15px; height: 15px; top: 40%; left: 65%; animation-duration: 15s;"></div>
-         <div class="dot" style="width: 20px; height: 20px; top: 50%; left: 55%; animation-duration: 16s;"></div>
-         <div class="dot" style="width: 30px; height: 30px; top: 60%; left: 45%; animation-duration: 17s;"></div>
-         <div class="dot" style="width: 25px; height: 25px; top: 70%; left: 35%; animation-duration: 18s;"></div>
-         <div class="dot" style="width: 15px; height: 15px; top: 80%; left: 25%; animation-duration: 19s;"></div>
-         <div class="dot" style="width: 20px; height: 20px; top: 90%; left: 15%; animation-duration: 12s;"></div>
-         <div class="dot" style="width: 25px; height: 25px; top: 60%; left: 5%; animation-duration: 13s;"></div>
-         <div class="dot" style="width: 30px; height: 30px; top: 70%; left: 10%; animation-duration: 14s;"></div>
-      </div>
+      <div class="moving-dots" id="moving-dots"></div>
 
       <script>
          function cloakTab() {
             window.location.href = 'about:blank';
          }
+
+         // Create 20 dots with random movement
+         function createRandomDots(numDots) {
+            const container = document.getElementById('moving-dots');
+            for (let i = 0; i < numDots; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                const size = Math.floor(Math.random() * 30) + 15; // Dot size between 15px and 45px
+                const colorDuration = Math.random() * 5 + 5; // Random color change duration between 5s and 10s
+                const positionX = Math.random() * 100; // Random x position between 0% and 100%
+                const positionY = Math.random() * 100; // Random y position between 0% and 100%
+
+                dot.style.width = `${size}px`;
+                dot.style.height = `${size}px`;
+                dot.style.top = `${positionY}vh`;
+                dot.style.left = `${positionX}vw`;
+                dot.style.animationDuration = `${colorDuration}s`;
+
+                // Random movement direction (x and y offsets)
+                const randomX = (Math.random() - 0.5) * 2 * 100; // Random x direction
+                const randomY = (Math.random() - 0.5) * 2 * 100; // Random y direction
+
+                // Apply random movement
+                dot.style.animation = `moveDot ${Math.random() * 20 + 10}s linear infinite, colorChange ${Math.random() * 5 + 5}s infinite`;
+
+                container.appendChild(dot);
+            }
+         }
+
+         // Dot movement animation (random direction)
+         const style = document.createElement('style');
+         style.innerHTML = `
+            @keyframes moveDot {
+               0% {
+                  transform: translate(0vw, 0vh);
+               }
+               50% {
+                  transform: translate(${(Math.random() - 0.5) * 2 * 100}vw, ${(Math.random() - 0.5) * 2 * 100}vh);
+               }
+               100% {
+                  transform: translate(0vw, 0vh);
+               }
+            }
+         `;
+         document.head.appendChild(style);
+
+         createRandomDots(20); // Create 20 dots
       </script>
       <script src="uv/uv.bundle.js" defer></script>
       <script src="uv/uv.config.js" defer></script>
