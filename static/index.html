@@ -1,1 +1,285 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Art Universal</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <style>
+         /* General styles */
+         body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: sans-serif;
+            overflow: hidden;
+            position: relative;
+         }
 
+         /* Ensures the page fully covers the viewport */
+         .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+         }
+
+         .title {
+            font-size: 64px; /* Increased size */
+            font-weight: bold;
+            background: linear-gradient(90deg, #ff007f, #6200ea); /* Pinkish-purple gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+         }
+
+         .search-form {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            align-items: center;
+         }
+
+         .search-input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+         }
+
+         .search-button {
+            padding: 12px 20px;
+            font-size: 16px;
+            background-color: #6200ea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+         }
+
+         .search-button:hover {
+            background-color: #3700b3;
+         }
+
+         .games-button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #6200ea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+         }
+
+         .games-button:hover {
+            background-color: #3700b3;
+         }
+
+         .about-blank-button {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 10px 15px;
+            font-size: 14px;
+            background-color: #ff5722;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+         }
+
+         .about-blank-button:hover {
+            background-color: #e64a19;
+         }
+
+         footer {
+            position: fixed;
+            bottom: 16px;
+            font-size: 14px;
+            color: #777;
+         }
+
+         /* New buttons for GitHub and Discord */
+         .social-buttons {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+         }
+
+         .social-buttons a {
+            padding: 10px 20px;
+            font-size: 16px;
+            text-decoration: none;
+            color: white;
+            border-radius: 8px;
+            display: inline-block;
+            text-align: center;
+         }
+
+         .github {
+            background-color: #333;
+         }
+
+         .discord {
+            background-color: #7289da;
+         }
+
+         .social-buttons a:hover {
+            opacity: 0.8;
+         }
+
+         /* Moving background with rainbow color-changing dots */
+         .moving-dots {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;  /* Make sure it stretches full width of viewport */
+            height: 100vh; /* Make sure it stretches full height of viewport */
+            pointer-events: none;
+            z-index: 0;
+         }
+
+         .dot {
+            position: absolute;
+            border-radius: 50%;
+            animation: colorChange 5s infinite;
+         }
+
+         /* Smooth color change animation from purple to cyan and back */
+         @keyframes colorChange {
+            0% {
+                background-color: purple;
+            }
+            50% {
+                background-color: cyan;
+            }
+            100% {
+                background-color: purple;
+            }
+         }
+      </style>
+   </head>
+   <body>
+      <button class="about-blank-button" onclick="cloakTab()">About:Blank</button>
+      <div class="container">
+         <div class="title">Art Universal</div> <!-- Updated title -->
+         <form id="uv-form" class="search-form" action="https://www.bing.com/search?q=" method="get">
+            <input type="hidden" id="uv-search-engine" value="https://www.bing.com/search?q=" />
+            <input class="search-input" id="uv-address" type="text" placeholder="Search Unblocked with Art Universal" name="q" required />
+            <button class="search-button" type="submit">Search</button>
+         </form>
+         
+         <!-- Button to Access Games Section -->
+         <a href="games.html" class="games-button">Go to Games</a>
+
+         <footer>Credits to @Desktop_bypassers & @wvrmattreborn for help making this proxy!</footer>
+      </div>
+
+      <!-- Social media buttons for GitHub and Discord -->
+      <div class="social-buttons">
+         <a href="https://github.com/MoneyManReal/aun" target="_blank" class="github">GitHub</a>
+         <a href="https://discord.gg/jebDGUchyU" target="_blank" class="discord">Discord</a>
+      </div>
+
+      <!-- Moving colorful dots background -->
+      <div class="moving-dots" id="moving-dots"></div>
+
+      <script>
+         function cloakTab() {
+            window.location.href = 'about:blank';
+         }
+
+         const MAX_DOTS = 500; // Set the maximum number of dots
+         let dotCount = 0; // Counter to track the current number of dots
+
+         // Create new random dot
+         function createRandomDot() {
+            if (dotCount >= MAX_DOTS) return; // Don't create more dots if limit is reached
+
+            const container = document.getElementById('moving-dots');
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            const size = Math.floor(Math.random() * 30) + 15; // Dot size between 15px and 45px
+            const colorDuration = Math.random() * 5 + 5; // Random color change duration between 5s and 10s
+            const positionX = Math.random() * 100; // Random x position between 0% and 100%
+            const positionY = Math.random() * 100; // Random y position between 0% and 100%
+
+            dot.style.width = `${size}px`;
+            dot.style.height = `${size}px`;
+            dot.style.top = `${positionY}vh`;
+            dot.style.left = `${positionX}vw`;
+            dot.style.animationDuration = `${colorDuration}s`;
+
+            // Set initial velocity for bouncing
+            const velocityX = (Math.random() - 0.5) * 0.5; // Random horizontal velocity
+            const velocityY = (Math.random() - 0.5) * 0.5; // Random vertical velocity
+
+            // Store velocity in dot's data attributes
+            dot.setAttribute('data-velocity-x', velocityX);
+            dot.setAttribute('data-velocity-y', velocityY);
+
+            container.appendChild(dot);
+            dotCount++; // Increase dot count
+         }
+
+         // Dot bouncing logic
+         function updateDotPositions() {
+            const dots = document.querySelectorAll('.dot');
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+
+            dots.forEach(dot => {
+                let x = parseFloat(dot.style.left);
+                let y = parseFloat(dot.style.top);
+                const velocityX = parseFloat(dot.getAttribute('data-velocity-x'));
+                const velocityY = parseFloat(dot.getAttribute('data-velocity-y'));
+
+                // Update dot's position based on velocity
+                x += velocityX;
+                y += velocityY;
+
+                // Check for boundary collision and reverse direction if needed
+                if (x < 0 || x > 100) {
+                    dot.setAttribute('data-velocity-x', -velocityX); // Reverse horizontal velocity
+                }
+
+                if (y < 0 || y > 100) {
+                    dot.setAttribute('data-velocity-y', -velocityY); // Reverse vertical velocity
+                }
+
+                // Apply updated position
+                dot.style.left = `${x}vw`;
+                dot.style.top = `${y}vh`;
+            });
+
+            // Create a new dot every 100ms
+            setTimeout(createRandomDot, 100);
+            requestAnimationFrame(updateDotPositions);
+         }
+
+         // Start the dot creation and movement
+         createRandomDot(); // Create the first dot
+         updateDotPositions(); // Start the dot bouncing
+      </script>
+      <script src="uv/uv.bundle.js" defer></script>
+      <script src="uv/uv.config.js" defer></script>
+      <script src="register-sw.js" defer></script>
+      <script src="search.js" defer></script>
+      <script src="index.js" defer></script>
+      <script src="error.js"></script>
+   </body>
+</html>
