@@ -235,35 +235,53 @@
                 dot.style.left = `${positionX}vw`;
                 dot.style.animationDuration = `${colorDuration}s`;
 
-                // Random movement direction (x and y offsets)
-                const randomX = (Math.random() - 0.5) * 2 * 100; // Random x direction
-                const randomY = (Math.random() - 0.5) * 2 * 100; // Random y direction
+                // Set initial velocity for bouncing
+                const velocityX = (Math.random() - 0.5) * 0.5; // Random horizontal velocity
+                const velocityY = (Math.random() - 0.5) * 0.5; // Random vertical velocity
 
-                // Apply random movement
-                dot.style.animation = `moveDot ${Math.random() * 20 + 10}s linear infinite, colorChange ${Math.random() * 5 + 5}s infinite`;
+                // Store velocity in dot's data attributes
+                dot.setAttribute('data-velocity-x', velocityX);
+                dot.setAttribute('data-velocity-y', velocityY);
 
                 container.appendChild(dot);
             }
          }
 
-         // Dot movement animation (random direction)
-         const style = document.createElement('style');
-         style.innerHTML = `
-            @keyframes moveDot {
-               0% {
-                  transform: translate(0vw, 0vh);
-               }
-               50% {
-                  transform: translate(${(Math.random() - 0.5) * 2 * 100}vw, ${(Math.random() - 0.5) * 2 * 100}vh);
-               }
-               100% {
-                  transform: translate(0vw, 0vh);
-               }
-            }
-         `;
-         document.head.appendChild(style);
+         // Dot bouncing logic
+         function updateDotPositions() {
+            const dots = document.querySelectorAll('.dot');
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+
+            dots.forEach(dot => {
+                let x = parseFloat(dot.style.left);
+                let y = parseFloat(dot.style.top);
+                const velocityX = parseFloat(dot.getAttribute('data-velocity-x'));
+                const velocityY = parseFloat(dot.getAttribute('data-velocity-y'));
+
+                // Update dot's position based on velocity
+                x += velocityX;
+                y += velocityY;
+
+                // Check for boundary collision and reverse direction if needed
+                if (x < 0 || x > 100) {
+                    dot.setAttribute('data-velocity-x', -velocityX); // Reverse horizontal velocity
+                }
+
+                if (y < 0 || y > 100) {
+                    dot.setAttribute('data-velocity-y', -velocityY); // Reverse vertical velocity
+                }
+
+                // Apply updated position
+                dot.style.left = `${x}vw`;
+                dot.style.top = `${y}vh`;
+            });
+
+            requestAnimationFrame(updateDotPositions);
+         }
 
          createRandomDots(20); // Create 20 dots
+         updateDotPositions(); // Start the dot bouncing
       </script>
       <script src="uv/uv.bundle.js" defer></script>
       <script src="uv/uv.config.js" defer></script>
