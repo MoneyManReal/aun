@@ -156,7 +156,7 @@
          .dot {
             position: absolute;
             border-radius: 50%;
-            animation: moveDots 10s linear infinite, colorChange 5s infinite;
+            animation: moveDots 12s linear infinite, colorChange 5s infinite;
          }
 
          /* Dot movement animation */
@@ -164,8 +164,17 @@
             0% {
                 transform: translate(0, 0);
             }
+            25% {
+                transform: translate(50vw, 20vh);
+            }
+            50% {
+                transform: translate(100vw, 50vh);
+            }
+            75% {
+                transform: translate(50vw, 80vh);
+            }
             100% {
-                transform: translate(100vw, 100vh);
+                transform: translate(0, 100vh);
             }
          }
 
@@ -223,13 +232,27 @@
 
       <!-- Moving colorful dots background -->
       <div class="moving-dots">
-         <!-- Create multiple dots -->
-         <div class="dot" style="width: 30px; height: 30px; top: 50%; left: 20%; animation-duration: 12s;"></div>
-         <div class="dot" style="width: 25px; height: 25px; top: 30%; left: 50%; animation-duration: 14s;"></div>
-         <div class="dot" style="width: 20px; height: 20px; top: 70%; left: 80%; animation-duration: 10s;"></div>
-         <div class="dot" style="width: 40px; height: 40px; top: 10%; left: 80%; animation-duration: 15s;"></div>
-         <div class="dot" style="width: 35px; height: 35px; top: 80%; left: 30%; animation-duration: 13s;"></div>
-         <!-- Add more dots as desired -->
+         <!-- Generate 20 dots -->
+         <div class="dot" style="width: 20px; height: 20px; top: 10%; left: 10%; animation-duration: 12s;"></div>
+         <div class="dot" style="width: 20px; height: 20px; top: 30%; left: 20%; animation-duration: 13s;"></div>
+         <div class="dot" style="width: 20px; height: 20px; top: 50%; left: 30%; animation-duration: 14s;"></div>
+         <div class="dot" style="width: 20px; height: 20px; top: 70%; left: 40%; animation-duration: 15s;"></div>
+         <div class="dot" style="width: 20px; height: 20px; top: 20%; left: 50%; animation-duration: 16s;"></div>
+         <div class="dot" style="width: 20px; height: 20px; top: 60%; left: 60%; animation-duration: 17s;"></div>
+         <div class="dot" style="width: 20px; height: 20px; top: 80%; left: 70%; animation-duration: 18s;"></div>
+         <div class="dot" style="width: 20px; height: 20px; top: 40%; left: 80%; animation-duration: 19s;"></div>
+         <div class="dot" style="width: 20px; height: 20px; top: 10%; left: 90%; animation-duration: 12s;"></div>
+         <div class="dot" style="width: 20px; height: 20px; top: 90%; left: 10%; animation-duration: 13s;"></div>
+         <div class="dot" style="width: 20px; height: 20px; top: 30%; left: 50%; animation-duration: 14s;"></div>
+         <div class="dot" style="width: 20px; height: 20px; top: 40%; left: 40%; animation-duration: 15s;"></div>
+         <div class="dot" style="width: 20px; height: 20px; top: 50%; left: 60%; animation-duration: 16s;"></div>
+         <div class="dot" style="width: 20px; height: 20px; top: 60%; left: 30%; animation-duration: 17s;"></div>
+         <div class="dot" style="width: 20px; height: 20px; top: 20%; left: 70%; animation-duration: 18s;"></div>
+         <div class="dot" style="width: 20px; height: 20px; top: 70%; left: 90%; animation-duration: 19s;"></div>
+         <div class="dot" style="width: 20px; height: 20px; top: 80%; left: 60%; animation-duration: 12s;"></div>
+         <div class="dot" style="width: 20px; height: 20px; top: 30%; left: 80%; animation-duration: 13s;"></div>
+         <div class="dot" style="width: 20px; height: 20px; top: 90%; left: 50%; animation-duration: 14s;"></div>
+         <div class="dot" style="width: 20px; height: 20px; top: 60%; left: 10%; animation-duration: 15s;"></div>
       </div>
 
       <script>
