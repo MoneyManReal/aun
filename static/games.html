@@ -23,8 +23,8 @@
 
         .game-container {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
             gap: 20px;
             padding: 20px;
         }
@@ -43,10 +43,19 @@
             margin: 10px 0;
         }
 
-        iframe {
-            width: 100%;
-            height: 200px;
-            border: none;
+        .game a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .game a:hover {
+            background-color: #0056b3;
         }
 
         .back-button {
@@ -69,21 +78,13 @@
     <header>Games Section</header>
     
     <div class="game-container">
-        <!-- Example of an Embedded Game -->
         <div class="game">
-            <h3>Snake Game</h3>
-            <iframe src="games/snake/index.html"></iframe>
+            <h3>Chess</h3>
+            <a href="games/chess/index.html" target="_blank">Play Chess</a>
         </div>
-
-        <!-- Example of a Linked Game -->
-        <div class="game">
-            <h3>Tetris</h3>
-            <a href="https://example.com/tetris" target="_blank">Play Tetris</a>
-        </div>
-
-        <!-- Add more games here -->
     </div>
 
     <a href="index.html" class="back-button">Back to Home</a>
 </body>
 </html>
+
