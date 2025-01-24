@@ -4,7 +4,6 @@
       <title>Art Universal</title>
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <style>
-         /* General styles */
          body, html {
             height: 100%;
             margin: 0;
@@ -16,7 +15,6 @@
             position: relative;
          }
 
-         /* Ensures the page fully covers the viewport */
          .container {
             display: flex;
             flex-direction: column;
@@ -29,9 +27,9 @@
          }
 
          .title {
-            font-size: 64px; /* Increased size */
+            font-size: 64px; 
             font-weight: bold;
-            background: linear-gradient(90deg, #ff007f, #6200ea); /* Pinkish-purple gradient */
+            background: linear-gradient(90deg, #ff007f, #6200ea);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin: 0;
@@ -111,7 +109,6 @@
             color: #777;
          }
 
-         /* New buttons for GitHub and Discord */
          .social-buttons {
             position: fixed;
             bottom: 20px;
@@ -142,13 +139,12 @@
             opacity: 0.8;
          }
 
-         /* Moving background with rainbow color-changing dots */
          .moving-dots {
             position: absolute;
             top: 0;
             left: 0;
-            width: 100vw;  /* Make sure it stretches full width of viewport */
-            height: 100vh; /* Make sure it stretches full height of viewport */
+            width: 100vw; 
+            height: 100vh; 
             pointer-events: none;
             z-index: 0;
          }
@@ -159,13 +155,12 @@
             animation: colorChange 5s infinite;
          }
 
-         /* Smooth color change animation from purple to cyan and back */
          @keyframes colorChange {
             0% {
                 background-color: purple;
             }
             50% {
-                background-color: cyan;
+                background-color: magenta;
             }
             100% {
                 background-color: purple;
@@ -183,19 +178,16 @@
             <button class="search-button" type="submit">Search</button>
          </form>
          
-         <!-- Button to Access Games Section -->
          <a href="games.html" class="games-button">Go to Games</a>
 
          <footer>Credits to @Desktop_bypassers & @wvrmattreborn for help making this proxy!</footer>
       </div>
-
-      <!-- Social media buttons for GitHub and Discord -->
+      
       <div class="social-buttons">
          <a href="https://github.com/MoneyManReal/aun" target="_blank" class="github">GitHub</a>
          <a href="https://discord.gg/jebDGUchyU" target="_blank" class="discord">Discord</a>
       </div>
 
-      <!-- Moving colorful dots background -->
       <div class="moving-dots" id="moving-dots"></div>
 
       <script>
@@ -203,20 +195,19 @@
             window.location.href = 'about:blank';
          }
 
-         const MAX_DOTS = 200; // Set the maximum number of dots
-         let dotCount = 0; // Counter to track the current number of dots
+         const MAX_DOTS = 200;
+         let dotCount = 0;
 
-         // Create new random dot
          function createRandomDot() {
-            if (dotCount >= MAX_DOTS) return; // Don't create more dots if limit is reached
+            if (dotCount >= MAX_DOTS) return; 
 
             const container = document.getElementById('moving-dots');
             const dot = document.createElement('div');
             dot.classList.add('dot');
-            const size = Math.floor(Math.random() * 30) + 15; // Dot size between 15px and 45px
-            const colorDuration = Math.random() * 5 + 5; // Random color change duration between 5s and 10s
-            const positionX = Math.random() * 100; // Random x position between 0% and 100%
-            const positionY = Math.random() * 100; // Random y position between 0% and 100%
+            const size = Math.floor(Math.random() * 30) + 15; 
+            const colorDuration = Math.random() * 5 + 5; 
+            const positionX = Math.random() * 100; 
+            const positionY = Math.random() * 100;
 
             dot.style.width = `${size}px`;
             dot.style.height = `${size}px`;
@@ -224,19 +215,16 @@
             dot.style.left = `${positionX}vw`;
             dot.style.animationDuration = `${colorDuration}s`;
 
-            // Set initial velocity for bouncing
-            const velocityX = (Math.random() - 0.5) * 0.5; // Random horizontal velocity
-            const velocityY = (Math.random() - 0.5) * 0.5; // Random vertical velocity
+            const velocityX = (Math.random() - 0.5) * 0.5; 
+            const velocityY = (Math.random() - 0.5) * 0.5; 
 
-            // Store velocity in dot's data attributes
             dot.setAttribute('data-velocity-x', velocityX);
             dot.setAttribute('data-velocity-y', velocityY);
 
             container.appendChild(dot);
-            dotCount++; // Increase dot count
+            dotCount++; 
          }
 
-         // Dot bouncing logic
          function updateDotPositions() {
             const dots = document.querySelectorAll('.dot');
             const screenWidth = window.innerWidth;
@@ -248,32 +236,27 @@
                 const velocityX = parseFloat(dot.getAttribute('data-velocity-x'));
                 const velocityY = parseFloat(dot.getAttribute('data-velocity-y'));
 
-                // Update dot's position based on velocity
                 x += velocityX;
                 y += velocityY;
 
-                // Check for boundary collision and reverse direction if needed
                 if (x < 0 || x > 100) {
-                    dot.setAttribute('data-velocity-x', -velocityX); // Reverse horizontal velocity
+                    dot.setAttribute('data-velocity-x', -velocityX);
                 }
 
                 if (y < 0 || y > 100) {
-                    dot.setAttribute('data-velocity-y', -velocityY); // Reverse vertical velocity
+                    dot.setAttribute('data-velocity-y', -velocityY); 
                 }
 
-                // Apply updated position
                 dot.style.left = `${x}vw`;
                 dot.style.top = `${y}vh`;
             });
 
-            // Create a new dot every 100ms
             setTimeout(createRandomDot, 100);
             requestAnimationFrame(updateDotPositions);
          }
 
-         // Start the dot creation and movement
-         createRandomDot(); // Create the first dot
-         updateDotPositions(); // Start the dot bouncing
+         createRandomDot();
+         updateDotPositions(); 
       </script>
       <script src="uv/uv.bundle.js" defer></script>
       <script src="uv/uv.config.js" defer></script>
