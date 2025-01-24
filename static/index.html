@@ -238,7 +238,6 @@
                x += velocityX;
                y += velocityY;
 
-               // Bounce off edges
                if (x < 0 || x + parseFloat(dot.style.width) > screenWidth) {
                   dot.setAttribute('data-velocity-x', -velocityX);
                }
