@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>QuickSearch</title>
+    <title>Art Universal - QuickSearch</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body {
@@ -115,24 +115,23 @@
                 const urlItem = document.createElement('div');
                 urlItem.className = 'url-item';
 
-                // Use your existing uv-form code for proxying
+                // Use the provided proxy form setup
                 const form = document.createElement('form');
-                form.id = `uv-form-${index}`;
                 form.className = 'search-form';
-                form.action = url; // Use the saved URL directly
+                form.action = '/uv/service/' + encodeURIComponent(url); // Proxy integration
                 form.method = 'get';
 
-                const hiddenInput = document.createElement('input');
-                hiddenInput.type = 'hidden';
-                hiddenInput.name = 'q';
-                hiddenInput.value = url;
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'q';
+                input.value = url;
 
-                const submitButton = document.createElement('button');
-                submitButton.textContent = 'Go';
-                submitButton.type = 'submit';
+                const button = document.createElement('button');
+                button.textContent = 'Go';
+                button.type = 'submit';
 
-                form.appendChild(hiddenInput);
-                form.appendChild(submitButton);
+                form.appendChild(input);
+                form.appendChild(button);
 
                 // Remove button
                 const removeButton = document.createElement('button');
@@ -165,5 +164,6 @@
         // Initial render
         renderUrls();
     </script>
+    
 </body>
 </html>
