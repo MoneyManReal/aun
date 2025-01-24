@@ -13,6 +13,7 @@
             font-family: sans-serif;
             overflow: hidden;
             position: relative;
+            background-color: #808080; /* Set the background color to gray */
          }
 
          .container {
@@ -276,6 +277,7 @@
          function connectDots() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+            // Randomly select pairs of dots and connect them
             let pairs = [];
             for (let i = 0; i < dots.length; i++) {
                 for (let j = i + 1; j < dots.length; j++) {
