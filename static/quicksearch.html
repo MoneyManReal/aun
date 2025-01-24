@@ -107,20 +107,35 @@
                 const urlItem = document.createElement('div');
                 urlItem.classList.add('url-item');
 
-                const urlLink = document.createElement('a');
-                urlLink.href = url;
-                urlLink.target = '_blank';
-                urlLink.textContent = url;
+                const form = document.createElement('form');
+                form.classList.add('search-form');
+                form.action = url; // Use the saved URL
+                form.method = 'get';
+                form.target = '_blank';
+
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'q';
+                input.value = url;
+
+                const linkButton = document.createElement('button');
+                linkButton.classList.add('search-button');
+                linkButton.type = 'submit';
+                linkButton.textContent = 'Open Link';
+
+                form.appendChild(input);
+                form.appendChild(linkButton);
 
                 const removeButton = document.createElement('button');
                 removeButton.textContent = 'Remove';
-                removeButton.onclick = () => {
+                removeButton.onclick = (e) => {
+                    e.preventDefault();
                     storedURLs.splice(index, 1);
                     localStorage.setItem('quickSearchURLs', JSON.stringify(storedURLs));
                     renderURLs();
                 };
 
-                urlItem.appendChild(urlLink);
+                urlItem.appendChild(form);
                 urlItem.appendChild(removeButton);
                 urlList.appendChild(urlItem);
             });
