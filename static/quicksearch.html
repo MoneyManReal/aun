@@ -19,34 +19,6 @@
             color: #6200ea;
         }
 
-        .url-form {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-        }
-
-        .url-input {
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            width: 300px;
-        }
-
-        .add-button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #6200ea;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .add-button:hover {
-            background-color: #3700b3;
-        }
-
         .url-list {
             width: 100%;
             max-width: 600px;
@@ -64,6 +36,11 @@
             border-radius: 5px;
         }
 
+        .url-item form {
+            flex: 1;
+            display: flex;
+        }
+
         .url-item button {
             padding: 5px 10px;
             font-size: 14px;
@@ -78,82 +55,115 @@
             background-color: #e64a19;
         }
 
-        .url-item a {
-            text-decoration: none;
-            color: #6200ea;
-            font-weight: bold;
+        .url-item input[type="text"] {
+            flex: 1;
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .add-url-form {
+            display: flex;
+            gap: 10px;
+        }
+
+        .add-url-form input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            flex: 1;
+        }
+
+        .add-url-form button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #6200ea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .add-url-form button:hover {
+            background-color: #3700b3;
         }
     </style>
 </head>
 <body>
     <h1>QuickSearch</h1>
-    <form class="url-form" id="url-form">
-        <input class="url-input" id="url-input" type="text" placeholder="Enter URL" required />
-        <button class="add-button" type="submit">Add</button>
+    <form class="add-url-form" id="add-url-form">
+        <input type="text" id="quicksearch-url" placeholder="Enter URL for QuickSearch" required />
+        <button type="submit">Add URL</button>
     </form>
     <div class="url-list" id="url-list"></div>
 
     <script>
-        const urlForm = document.getElementById('url-form');
-        const urlInput = document.getElementById('url-input');
+        const addUrlForm = document.getElementById('add-url-form');
+        const quicksearchUrl = document.getElementById('quicksearch-url');
         const urlList = document.getElementById('url-list');
 
-        // Load URLs from localStorage
-        const storedURLs = JSON.parse(localStorage.getItem('quickSearchURLs')) || [];
+        // Load saved URLs from localStorage
+        const savedUrls = JSON.parse(localStorage.getItem('quicksearchUrls')) || [];
 
-        const renderURLs = () => {
+        // Function to render the list of URLs
+        function renderUrls() {
             urlList.innerHTML = '';
-            storedURLs.forEach((url, index) => {
+            savedUrls.forEach((url, index) => {
                 const urlItem = document.createElement('div');
-                urlItem.classList.add('url-item');
+                urlItem.className = 'url-item';
 
+                // Use your existing uv-form code for proxying
                 const form = document.createElement('form');
-                form.classList.add('search-form');
-                form.action = url; // Use the saved URL
+                form.id = `uv-form-${index}`;
+                form.className = 'search-form';
+                form.action = url; // Use the saved URL directly
                 form.method = 'get';
-                form.target = '_blank';
 
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = 'q';
-                input.value = url;
+                const hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = 'q';
+                hiddenInput.value = url;
 
-                const linkButton = document.createElement('button');
-                linkButton.classList.add('search-button');
-                linkButton.type = 'submit';
-                linkButton.textContent = 'Open Link';
+                const submitButton = document.createElement('button');
+                submitButton.textContent = 'Go';
+                submitButton.type = 'submit';
 
-                form.appendChild(input);
-                form.appendChild(linkButton);
+                form.appendChild(hiddenInput);
+                form.appendChild(submitButton);
 
+                // Remove button
                 const removeButton = document.createElement('button');
                 removeButton.textContent = 'Remove';
                 removeButton.onclick = (e) => {
                     e.preventDefault();
-                    storedURLs.splice(index, 1);
-                    localStorage.setItem('quickSearchURLs', JSON.stringify(storedURLs));
-                    renderURLs();
+                    savedUrls.splice(index, 1);
+                    localStorage.setItem('quicksearchUrls', JSON.stringify(savedUrls));
+                    renderUrls();
                 };
 
                 urlItem.appendChild(form);
                 urlItem.appendChild(removeButton);
                 urlList.appendChild(urlItem);
             });
-        };
+        }
 
-        urlForm.addEventListener('submit', (e) => {
+        // Handle form submission to add a URL
+        addUrlForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const newURL = urlInput.value.trim();
-            if (newURL && !storedURLs.includes(newURL)) {
-                storedURLs.push(newURL);
-                localStorage.setItem('quickSearchURLs', JSON.stringify(storedURLs));
-                renderURLs();
-                urlInput.value = '';
+            const url = quicksearchUrl.value.trim();
+            if (url && !savedUrls.includes(url)) {
+                savedUrls.push(url);
+                localStorage.setItem('quicksearchUrls', JSON.stringify(savedUrls));
+                renderUrls();
+                quicksearchUrl.value = '';
             }
         });
 
         // Initial render
-        renderURLs();
+        renderUrls();
     </script>
 </body>
 </html>
