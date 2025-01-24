@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QuickSearch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #6200ea;
+        }
+
+        .url-form {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .url-input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 300px;
+        }
+
+        .add-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #6200ea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .add-button:hover {
+            background-color: #3700b3;
+        }
+
+        .url-list {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .url-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #f4f4f4;
+            border-radius: 5px;
+        }
+
+        .url-item button {
+            padding: 5px 10px;
+            font-size: 14px;
+            background-color: #ff5722;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .url-item button:hover {
+            background-color: #e64a19;
+        }
+
+        .url-item a {
+            text-decoration: none;
+            color: #6200ea;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>QuickSearch</h1>
+    <form class="url-form" id="url-form">
+        <input class="url-input" id="url-input" type="text" placeholder="Enter URL" required />
+        <button class="add-button" type="submit">Add</button>
+    </form>
+    <div class="url-list" id="url-list"></div>
+
+    <script>
+        const urlForm = document.getElementById('url-form');
+        const urlInput = document.getElementById('url-input');
+        const urlList = document.getElementById('url-list');
+
+        // Load URLs from localStorage
+        const storedURLs = JSON.parse(localStorage.getItem('quickSearchURLs')) || [];
+
+        const renderURLs = () => {
+            urlList.innerHTML = '';
+            storedURLs.forEach((url, index) => {
+                const urlItem = document.createElement('div');
+                urlItem.classList.add('url-item');
+
+                const urlLink = document.createElement('a');
+                urlLink.href = url;
+                urlLink.target = '_blank';
+                urlLink.textContent = url;
+
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove';
+                removeButton.onclick = () => {
+                    storedURLs.splice(index, 1);
+                    localStorage.setItem('quickSearchURLs', JSON.stringify(storedURLs));
+                    renderURLs();
+                };
+
+                urlItem.appendChild(urlLink);
+                urlItem.appendChild(removeButton);
+                urlList.appendChild(urlItem);
+            });
+        };
+
+        urlForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newURL = urlInput.value.trim();
+            if (newURL && !storedURLs.includes(newURL)) {
+                storedURLs.push(newURL);
+                localStorage.setItem('quickSearchURLs', JSON.stringify(storedURLs));
+                renderURLs();
+                urlInput.value = '';
+            }
+        });
+
+        // Initial render
+        renderURLs();
+    </script>
+</body>
+</html>
