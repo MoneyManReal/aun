@@ -140,11 +140,11 @@
          }
 
          .moving-dots {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
-            width: 100vw; 
-            height: 100vh; 
+            width: 100%; 
+            height: 100%; 
             pointer-events: none;
             z-index: 0;
          }
@@ -157,13 +157,13 @@
 
          @keyframes colorChange {
             0% {
-                background-color: purple;
+               background-color: purple;
             }
             50% {
-                background-color: pink;
+               background-color: pink;
             }
             100% {
-                background-color: purple;
+               background-color: purple;
             }
          }
       </style>
@@ -171,7 +171,7 @@
    <body>
       <button class="about-blank-button" onclick="cloakTab()">About:Blank</button>
       <div class="container">
-         <div class="title">Art Universal</div> <!-- Updated title -->
+         <div class="title">Art Universal</div>
          <form id="uv-form" class="search-form" action="https://www.bing.com/search?q=" method="get">
             <input type="hidden" id="uv-search-engine" value="https://www.bing.com/search?q=" />
             <input class="search-input" id="uv-address" type="text" placeholder="Search Unblocked with Art Universal" name="q" required />
@@ -179,7 +179,6 @@
          </form>
          
          <a href="games.html" class="games-button">Go to Games</a>
-
          <footer>Credits to @Desktop_bypassers & @wvrmattreborn for help making this proxy!</footer>
       </div>
       
@@ -199,30 +198,30 @@
          let dotCount = 0;
 
          function createRandomDot() {
-            if (dotCount >= MAX_DOTS) return; 
+            if (dotCount >= MAX_DOTS) return;
 
             const container = document.getElementById('moving-dots');
             const dot = document.createElement('div');
             dot.classList.add('dot');
-            const size = Math.floor(Math.random() * 30) + 15; 
-            const colorDuration = Math.random() * 5 + 5; 
-            const positionX = Math.random() * 100; 
-            const positionY = Math.random() * 100;
+            const size = Math.floor(Math.random() * 30) + 15;
+            const colorDuration = Math.random() * 5 + 5;
+            const positionX = Math.random() * window.innerWidth;
+            const positionY = Math.random() * window.innerHeight;
 
             dot.style.width = `${size}px`;
             dot.style.height = `${size}px`;
-            dot.style.top = `${positionY}vh`;
-            dot.style.left = `${positionX}vw`;
+            dot.style.top = `${positionY}px`;
+            dot.style.left = `${positionX}px`;
             dot.style.animationDuration = `${colorDuration}s`;
 
-            const velocityX = (Math.random() - 0.5) * 0.5; 
-            const velocityY = (Math.random() - 0.5) * 0.5; 
+            const velocityX = (Math.random() - 0.5) * 2;
+            const velocityY = (Math.random() - 0.5) * 2;
 
             dot.setAttribute('data-velocity-x', velocityX);
             dot.setAttribute('data-velocity-y', velocityY);
 
             container.appendChild(dot);
-            dotCount++; 
+            dotCount++;
          }
 
          function updateDotPositions() {
@@ -231,24 +230,24 @@
             const screenHeight = window.innerHeight;
 
             dots.forEach(dot => {
-                let x = parseFloat(dot.style.left);
-                let y = parseFloat(dot.style.top);
-                const velocityX = parseFloat(dot.getAttribute('data-velocity-x'));
-                const velocityY = parseFloat(dot.getAttribute('data-velocity-y'));
+               let x = parseFloat(dot.style.left);
+               let y = parseFloat(dot.style.top);
+               const velocityX = parseFloat(dot.getAttribute('data-velocity-x'));
+               const velocityY = parseFloat(dot.getAttribute('data-velocity-y'));
 
-                x += velocityX;
-                y += velocityY;
+               x += velocityX;
+               y += velocityY;
 
-                if (x < 0 || x > 100) {
-                    dot.setAttribute('data-velocity-x', -velocityX);
-                }
+               // Bounce off edges
+               if (x < 0 || x + parseFloat(dot.style.width) > screenWidth) {
+                  dot.setAttribute('data-velocity-x', -velocityX);
+               }
+               if (y < 0 || y + parseFloat(dot.style.height) > screenHeight) {
+                  dot.setAttribute('data-velocity-y', -velocityY);
+               }
 
-                if (y < 0 || y > 100) {
-                    dot.setAttribute('data-velocity-y', -velocityY); 
-                }
-
-                dot.style.left = `${x}vw`;
-                dot.style.top = `${y}vh`;
+               dot.style.left = `${x}px`;
+               dot.style.top = `${y}px`;
             });
 
             setTimeout(createRandomDot, 100);
@@ -256,13 +255,7 @@
          }
 
          createRandomDot();
-         updateDotPositions(); 
+         updateDotPositions();
       </script>
-      <script src="uv/uv.bundle.js" defer></script>
-      <script src="uv/uv.config.js" defer></script>
-      <script src="register-sw.js" defer></script>
-      <script src="search.js" defer></script>
-      <script src="index.js" defer></script>
-      <script src="error.js"></script>
    </body>
 </html>
