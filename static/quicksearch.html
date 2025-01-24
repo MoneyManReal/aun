@@ -3,94 +3,6 @@
 <head>
     <title>Art Universal - QuickSearch</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-
-        h1 {
-            font-size: 32px;
-            color: #6200ea;
-        }
-
-        .url-list {
-            width: 100%;
-            max-width: 600px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .url-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            background-color: #f4f4f4;
-            border-radius: 5px;
-        }
-
-        .url-item form {
-            flex: 1;
-            display: flex;
-        }
-
-        .url-item button {
-            padding: 5px 10px;
-            font-size: 14px;
-            background-color: #ff5722;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .url-item button:hover {
-            background-color: #e64a19;
-        }
-
-        .url-item input[type="text"] {
-            flex: 1;
-            padding: 8px;
-            font-size: 14px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-right: 10px;
-        }
-
-        .add-url-form {
-            display: flex;
-            gap: 10px;
-        }
-
-        .add-url-form input {
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            flex: 1;
-        }
-
-        .add-url-form button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #6200ea;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .add-url-form button:hover {
-            background-color: #3700b3;
-        }
-    </style>
 </head>
 <body>
     <h1>QuickSearch</h1>
@@ -105,20 +17,17 @@
         const quicksearchUrl = document.getElementById('quicksearch-url');
         const urlList = document.getElementById('url-list');
 
-        // Load saved URLs from localStorage
         const savedUrls = JSON.parse(localStorage.getItem('quicksearchUrls')) || [];
 
-        // Function to render the list of URLs
         function renderUrls() {
             urlList.innerHTML = '';
             savedUrls.forEach((url, index) => {
                 const urlItem = document.createElement('div');
                 urlItem.className = 'url-item';
 
-                // Use the provided proxy form setup
                 const form = document.createElement('form');
                 form.className = 'search-form';
-                form.action = '/uv/service/' + encodeURIComponent(url); // Proxy integration
+                form.action = '/uv/service/' + encodeURIComponent(url);
                 form.method = 'get';
 
                 const input = document.createElement('input');
@@ -133,7 +42,6 @@
                 form.appendChild(input);
                 form.appendChild(button);
 
-                // Remove button
                 const removeButton = document.createElement('button');
                 removeButton.textContent = 'Remove';
                 removeButton.onclick = (e) => {
@@ -149,7 +57,6 @@
             });
         }
 
-        // Handle form submission to add a URL
         addUrlForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const url = quicksearchUrl.value.trim();
@@ -161,7 +68,6 @@
             }
         });
 
-        // Initial render
         renderUrls();
     </script>
     <script src="uv/uv.bundle.js" defer></script>
@@ -172,3 +78,4 @@
     <script src="error.js"></script>
 </body>
 </html>
+
