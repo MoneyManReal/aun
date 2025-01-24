@@ -13,7 +13,6 @@
             font-family: sans-serif;
             overflow: hidden;
             position: relative;
-            background-color: #808080; /* Set the background color to gray */
          }
 
          .container {
@@ -141,11 +140,11 @@
          }
 
          .moving-dots {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
-            width: 100vw; 
-            height: 100vh; 
+            width: 100%; 
+            height: 100%; 
             pointer-events: none;
             z-index: 0;
          }
@@ -158,31 +157,21 @@
 
          @keyframes colorChange {
             0% {
-                background-color: purple;
+               background-color: purple;
             }
             50% {
-                background-color: pink;
+               background-color: pink;
             }
             100% {
-                background-color: purple;
+               background-color: purple;
             }
-         }
-
-         canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 0;
          }
       </style>
    </head>
    <body>
       <button class="about-blank-button" onclick="cloakTab()">About:Blank</button>
       <div class="container">
-         <div class="title">Art Universal</div> <!-- Updated title -->
+         <div class="title">Art Universal</div>
          <form id="uv-form" class="search-form" action="https://www.bing.com/search?q=" method="get">
             <input type="hidden" id="uv-search-engine" value="https://www.bing.com/search?q=" />
             <input class="search-input" id="uv-address" type="text" placeholder="Search Unblocked with Art Universal" name="q" required />
@@ -190,7 +179,6 @@
          </form>
          
          <a href="games.html" class="games-button">Go to Games</a>
-
          <footer>Credits to @Desktop_bypassers & @wvrmattreborn for help making this proxy!</footer>
       </div>
       
@@ -200,8 +188,7 @@
       </div>
 
       <div class="moving-dots" id="moving-dots"></div>
-      <canvas id="canvas"></canvas> <!-- Canvas for drawing lines -->
-      
+
       <script>
          function cloakTab() {
             window.location.href = 'about:blank';
@@ -209,13 +196,6 @@
 
          const MAX_DOTS = 200;
          let dotCount = 0;
-         let dots = [];
-
-         const canvas = document.getElementById('canvas');
-         const ctx = canvas.getContext('2d');
-
-         canvas.width = window.innerWidth;
-         canvas.height = window.innerHeight;
 
          function createRandomDot() {
             if (dotCount >= MAX_DOTS) return;
@@ -225,91 +205,57 @@
             dot.classList.add('dot');
             const size = Math.floor(Math.random() * 30) + 15;
             const colorDuration = Math.random() * 5 + 5;
-            const positionX = Math.random() * 100;
-            const positionY = Math.random() * 100;
+            const positionX = Math.random() * window.innerWidth;
+            const positionY = Math.random() * window.innerHeight;
 
             dot.style.width = `${size}px`;
             dot.style.height = `${size}px`;
-            dot.style.top = `${positionY}vh`;
-            dot.style.left = `${positionX}vw`;
+            dot.style.top = `${positionY}px`;
+            dot.style.left = `${positionX}px`;
             dot.style.animationDuration = `${colorDuration}s`;
 
-            const velocityX = (Math.random() - 0.5) * 0.5;
-            const velocityY = (Math.random() - 0.5) * 0.5;
+            const velocityX = (Math.random() - 0.5) * 2;
+            const velocityY = (Math.random() - 0.5) * 2;
 
             dot.setAttribute('data-velocity-x', velocityX);
             dot.setAttribute('data-velocity-y', velocityY);
 
             container.appendChild(dot);
-            dots.push(dot);  // Store the dot element for line connections
             dotCount++;
          }
 
          function updateDotPositions() {
+            const dots = document.querySelectorAll('.dot');
             const screenWidth = window.innerWidth;
             const screenHeight = window.innerHeight;
 
             dots.forEach(dot => {
-                let x = parseFloat(dot.style.left);
-                let y = parseFloat(dot.style.top);
-                const velocityX = parseFloat(dot.getAttribute('data-velocity-x'));
-                const velocityY = parseFloat(dot.getAttribute('data-velocity-y'));
+               let x = parseFloat(dot.style.left);
+               let y = parseFloat(dot.style.top);
+               const velocityX = parseFloat(dot.getAttribute('data-velocity-x'));
+               const velocityY = parseFloat(dot.getAttribute('data-velocity-y'));
 
-                x += velocityX;
-                y += velocityY;
+               x += velocityX;
+               y += velocityY;
 
-                if (x < 0 || x > 100) {
-                    dot.setAttribute('data-velocity-x', -velocityX);
-                }
+               // Bounce off edges
+               if (x < 0 || x + parseFloat(dot.style.width) > screenWidth) {
+                  dot.setAttribute('data-velocity-x', -velocityX);
+               }
+               if (y < 0 || y + parseFloat(dot.style.height) > screenHeight) {
+                  dot.setAttribute('data-velocity-y', -velocityY);
+               }
 
-                if (y < 0 || y > 100) {
-                    dot.setAttribute('data-velocity-y', -velocityY);
-                }
-
-                dot.style.left = `${x}vw`;
-                dot.style.top = `${y}vh`;
+               dot.style.left = `${x}px`;
+               dot.style.top = `${y}px`;
             });
 
             setTimeout(createRandomDot, 100);
             requestAnimationFrame(updateDotPositions);
          }
 
-         function connectDots() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // Randomly select pairs of dots and connect them
-            let pairs = [];
-            for (let i = 0; i < dots.length; i++) {
-                for (let j = i + 1; j < dots.length; j++) {
-                    const dotA = dots[i];
-                    const dotB = dots[j];
-
-                    const x1 = parseFloat(dotA.style.left) * window.innerWidth / 100;
-                    const y1 = parseFloat(dotA.style.top) * window.innerHeight / 100;
-                    const x2 = parseFloat(dotB.style.left) * window.innerWidth / 100;
-                    const y2 = parseFloat(dotB.style.top) * window.innerHeight / 100;
-
-                    ctx.beginPath();
-                    ctx.moveTo(x1, y1);
-                    ctx.lineTo(x2, y2);
-                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
-                    ctx.lineWidth = 1;
-                    ctx.stroke();
-                }
-            }
-
-            setTimeout(connectDots, 2000); // Re-run the connection every 2 seconds
-         }
-
          createRandomDot();
          updateDotPositions();
-         connectDots();
       </script>
-      <script src="uv/uv.bundle.js" defer></script>
-      <script src="uv/uv.config.js" defer></script>
-      <script src="register-sw.js" defer></script>
-      <script src="search.js" defer></script>
-      <script src="index.js" defer></script>
-      <script src="error.js"></script>
    </body>
 </html>
