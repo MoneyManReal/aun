@@ -6,5 +6,5 @@ Star if you fork!
 
 ## Contributors
 
-@Desktop_bypassers (Discord) @wvrmattreborn (Discord)
+@Desktop_bypassers (Discord) @notatsfr (Discord)
 
